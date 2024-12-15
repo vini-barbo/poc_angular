@@ -10,7 +10,10 @@ import { RouterOutlet } from '@angular/router';
   template: `
     <main [className]="'flex flex-col min-h-[100dvh] justify-between'">
       <app-header />
-      <router-outlet></router-outlet>
+      <div [className]="'flex-grow'">
+        <router-outlet></router-outlet>
+      </div>
+
       <app-footer />
     </main>
   `,
