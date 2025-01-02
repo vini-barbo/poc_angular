@@ -13,4 +13,11 @@ export const routes: Routes = [
       return import('./auth/auth.module').then((m) => m.AuthModule);
     },
   },
+
+  {
+    path: 'product',
+    loadComponent: () => {
+      return import('./product/product.component').then((m) => m.ProductComponent);
+    },
+  },
 ];

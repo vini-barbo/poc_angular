@@ -35,7 +35,7 @@ import { RouterModule } from '@angular/router';
             [ngClass]="{'max-lg:hidden lg:!block': !isMenuOpen}"
           >
             <button
-              (click)="handleClickMenuSwitch()"
+              (click)="handleClickMenuToggle()"
               id="toggleClose"
               class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white w-9 h-9 flex items-center justify-center border"
             >
@@ -158,6 +158,7 @@ import { RouterModule } from '@angular/router';
               </div>
 
               <button
+                routerLink="/auth/login"
                 class="max-lg:hidden px-4 py-2 text-sm rounded-full text-white border-2 border-[#007bff] bg-[#007bff] hover:bg-[#004bff]"
               >
                 Sign In
@@ -165,7 +166,7 @@ import { RouterModule } from '@angular/router';
 
               <button
                 id="toggleOpen"
-                (click)="handleClickMenuSwitch()"
+                (click)="handleClickMenuToggle()"
                 class="lg:hidden"
               >
                 <svg
@@ -192,7 +193,7 @@ import { RouterModule } from '@angular/router';
 export class HeaderComponent {
   isMenuOpen: boolean = false;
 
-  handleClickMenuSwitch = () => {
+  handleClickMenuToggle = () => {
     this.isMenuOpen = !this.isMenuOpen;
   };
 
