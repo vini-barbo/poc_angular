@@ -6,15 +6,17 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Route, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, ProductCardComponent],
+  imports: [RouterModule, CommonModule, HttpClientModule, ProductCardComponent],
   template: `
     <main>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <app-product-card
+          (click)="handleClickRedirectToProductPage(productData.id)"
           *ngFor="let productData of products | async"
           [price]="productData.price"
           [name]="productData.title"
@@ -27,17 +29,17 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) {}
+  constructor(
+    private http: HttpClient,
+    private sanitizer: DomSanitizer,
+    private router: Router
+  ) {}
   product!: Observable<IProduct>;
   products!: Observable<IProduct[]>;
 
   ngOnInit() {
     this.product = this.getProduct(34);
     this.products = this.getProducts();
-  }
-
-  getSafeUrl(url: string): SafeUrl {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   getProduct(id: number): Observable<IProduct> {
@@ -51,4 +53,12 @@ export class HomeComponent implements OnInit {
       'https://api.escuelajs.co/api/v1/products/'
     );
   }
+
+  getSafeUrl(url: string): SafeUrl {
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+
+  handleClickRedirectToProductPage = (id: number) => {
+    this.router.navigate([`/product/${id}`]);
+  };
 }

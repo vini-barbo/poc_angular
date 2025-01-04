@@ -21,9 +21,15 @@ export const routes: Routes = [
     loadComponent: () => {
       return LayoutComponent;
     },
-    children: [{
-      path: '',
-      component: ProductComponent
-    }]
+    children: [
+      {
+        path: '',
+        component: ProductComponent,
+      },
+      {
+        path: ':id',
+        component: ProductComponent,
+      },
+    ],
   },
 ];

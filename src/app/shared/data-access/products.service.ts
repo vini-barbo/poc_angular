@@ -9,11 +9,15 @@ import { IProduct } from './products.interface';
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  async getProducts(endpoint: string): Promise<Observable<IProduct>> {
-    const response = await this.http.get<IProduct>(
-      'https://api.escuelajs.co/api/v1/products/34'
+  getProduct(id: number): Observable<IProduct> {
+    return this.http.get<IProduct>(
+      'https://api.escuelajs.co/api/v1/products/' + id
     );
+  }
 
-    return response;
+  getProducts(): Observable<IProduct[]> {
+    return this.http.get<IProduct[]>(
+      'https://api.escuelajs.co/api/v1/products/'
+    );
   }
 }
